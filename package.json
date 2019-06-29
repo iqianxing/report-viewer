@@ -21,11 +21,23 @@
   "dependencies": {
     "commander": "^2.9.0",
     "debug": "^2.2.0",
+    "express": "^4.17.1",
     "opener": "^1.4.1",
     "report-viewer-default": "file:report-viewer-default-0.3.3.tgz",
     "socket.io": "^1.4.5"
   },
   "devDependencies": {
+    "angular": "^1.4.9",
+    "angular-aria": "^1.4.9",
+    "angular-animate": "^1.4.9",
+    "angular-treemendous": "^0.2.4",
+    "angular-material": "^1.0.2",
+    "socket.io-client": "^1.4.5",
+    "browserify": "^13.0.0",
+    "browserify-css": "^0.8.4",
+    "browserify-ngannotate": "^2.0.0",
+    "jade": "^1.11.0",
+    "minifyify": "^7.2.1",
     "coffeescript": "^1.10.0",
     "nodemon": "^1.8.1",
     "parallelshell": "^2.0.0",
@@ -43,9 +55,8 @@
   ],
   "readmeFilename": "README.md",
   "scripts": {
-    "clean": "rimraf lib/ && mkdir lib",
-    "prebuild": "npm run clean",
-    "build": "coffee --compile --output lib/ src/*.coffee",
+    "build": "coffee --compile --output lib/ src\\index.coffee",
+    "build:script": "browserify ngapp/index.js -d -t browserify-ngannotate -t browserify-css -p [minifyify --compressPath . --map index.js.map --output ngapp/index.js.map] -o ngapp/bundle.js",
     "watch2": "coffee --watch --output lib/ src/*.coffee",
     "watch": "nodemon -q -w src/ --ext 'coffee' --exec 'npm run build'",
     "patch": "npm version patch;npm publish;git push;git push --tags"

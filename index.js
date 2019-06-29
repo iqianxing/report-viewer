@@ -3,6 +3,7 @@ var program = require('commander')
   , fs = require('fs')
   , path = require('path')
   , cwd = process.cwd()
+  , http = require('http')
 program
   .version(JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8')).version)
   .usage('[options] [command...]')
@@ -23,4 +24,6 @@ if (program.viewer) {
 }
 program.viewer = viewer
 
-require("./lib/index.js")(program)
+var server = http.createServer();
+require("./lib/index.js")(server, program)
+server.listen(program.port)
