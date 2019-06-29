@@ -14,16 +14,12 @@ program
 
 module.paths.push(cwd, path.join(cwd, 'node_modules'));
 
-var viewer;
-if (program.viewer) {
-  var abs = fs.exists(program.viewer) || fs.exists(program.viewer + '.js');
-  if (abs) program.viewer = path.resolve(program.viewer);
-  viewer = require(program.viewer);
-} else {
-  viewer = require("report-viewer-default")
-}
-program.viewer = viewer
-
 var server = http.createServer();
 require("./lib/index.js")(server, program)
+if(program.opener){
+  var debug = require('debug');
+  debug("opening browser");
+  opener = require("opener");
+  opener("http://localhost:" + program.port);
+}
 server.listen(program.port)

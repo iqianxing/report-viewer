@@ -22,8 +22,7 @@ var querystring = require("querystring");
 reporterApp = angular.module("reporterApp", [ngmaterial, "treemendous"]);
 
 reporterApp.controller("appCtrl", function($scope, $mdToast, $sce) {
-  var data, finished, progress, reload, socket, uri;
-  uri = global.location.protocol + '//' + global.location.hostname + ':' + window.options.port;
+  var data, finished, progress, reload, socket;
   socket = io({
     query: querystring.parse(global.location.search&&global.location.search.substr(1)||"") 
   });
