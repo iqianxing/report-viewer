@@ -38,7 +38,6 @@
     "browserify": "^13.0.0",
     "browserify-css": "^0.8.4",
     "browserify-ngannotate": "^2.0.0",
-    "coffeescript": "^1.10.0",
     "jade": "^1.11.0",
     "minifyify": "^7.2.1",
     "nodemon": "^1.19.1",
@@ -59,10 +58,7 @@
   "readmeFilename": "README.md",
   "scripts": {
     "start": "set PORT=80 && nodemon ./bin/www",
-    "build": "coffee --compile --output lib/ src\\index.coffee",
     "build:script": "browserify ngapp/index.js -d -t browserify-ngannotate -t browserify-css -p [minifyify --compressPath . --map index.js.map --output ngapp/index.js.map] -o ngapp/bundle.js",
-    "watch2": "coffee --watch --output lib/ src/*.coffee",
-    "watch": "nodemon -q -w src/ --ext 'coffee' --exec 'npm run build'",
     "patch": "npm version patch;npm publish;git push;git push --tags"
   }
 }
