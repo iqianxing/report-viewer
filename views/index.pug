@@ -11,4 +11,4 @@ html
   body.container(ng-app="reporterApp",ng-controller="appCtrl")
     div.console(flex)
       span.line(ng-repeat="string in console", ng-bind-html="string.html",ng-class="string.type") 
-    script(src='bundle.js')
+    script(src='report/bundle.js')
