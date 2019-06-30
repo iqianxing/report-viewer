@@ -39,10 +39,11 @@ div.console {
   background: #556270;
   color: #fff;
   height: 100%;
-  min-height: 750px;
-  padding: 4px;
+  /* min-height: 750px; */
+  padding: 10px 10px 20px 10px;
   border-left: 2px solid #fff;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-wrap: break-word;
 }
 span.line {
   display: block;
@@ -59,9 +60,9 @@ span.line.fail {
 span.line.error {
   color: #c44d58;
 }
-body,
-body>div {
+body {
   height: 100%;
   min-height: 750px;
+  overflow: hidden;
 }
 /*# sourceMappingURL=index.css.map */

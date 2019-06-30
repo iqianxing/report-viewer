@@ -6,10 +6,8 @@ html
     meta(http-equiv="X-UA-Compatible",content="IE=edge")
     meta(name="fragment",content="!")
     title 运行结果
-    link(rel='stylesheet', href='index.css')
     
   body.container(ng-app="reporterApp",ng-controller="appCtrl")
-    div(layout="row")
-      div.console(flex)
-        span.line(ng-repeat="string in console", ng-bind-html="string.html",ng-class="string.type") 
+    div.console(flex)
+      span.line(ng-repeat="string in console", ng-bind-html="string.html",ng-class="string.type") 
     script(src='bundle.js')

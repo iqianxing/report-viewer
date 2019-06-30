@@ -21,52 +21,56 @@ var querystring = require("querystring");
 
 reporterApp = angular.module("reporterApp", [ngmaterial, "treemendous"]);
 
-reporterApp.controller("appCtrl", function($scope, $mdToast, $sce) {
-  var data, finished, progress, reload, socket;
-  socket = io({
-    query: querystring.parse(global.location.search&&global.location.search.substr(1)||"") 
+reporterApp.controller("appCtrl", function ($scope, $mdToast, $sce) {
+  var socket = io({
+    query: querystring.parse(global.location.search && global.location.search.substr(1) || "")
   });
-  socket.on("reload", function() {
+  socket.on("reload", function () {
     console.log("reloading");
     socket.close();
     return document.location.reload();
   });
   socket.emit("restartable");
-  socket.once("restartable", function(isRestartable) {
+  socket.once("restartable", function (isRestartable) {
     console.log("isRestartable: " + isRestartable);
     $scope.isRestartable = isRestartable;
     if (isRestartable) {
-      return $scope.restart = function() {
+      return $scope.restart = function () {
         return socket.emit("restart");
       };
     }
   });
-  $scope.splitNewLine = function(string) {
+
+  var data = parser(socket, $sce, progress, finished);
+
+  $scope.splitNewLine = function (string) {
     return string.split("\n");
   };
-  progress = function() {
+
+  function progress() {
     $scope.data = data.data;
     $scope.tree = data.tree;
     $scope.failed = data.failed;
     $scope.console = data.console;
     return $scope.$$phase || $scope.$digest();
   };
-  finished = function() {
+
+  function finished() {
     $mdToast.show($mdToast.simple().content('Test finished'));
     socket.emit("loaded");
     console.log($scope.data);
     return console.log("finished");
   };
-  reload = function() {
+
+  function reload() {
     return socket.emit("getConsole");
   };
-  data = parser(socket, $sce, progress, finished);
   reload();
   return socket.on("reconnect", reload);
 });
 
-reporterApp.filter("hasProperty", function() {
-  return function(array, property) {
+reporterApp.filter("hasProperty", function () {
+  return function (array, property) {
     var i, len, obj, result;
     if (property) {
       result = [];
