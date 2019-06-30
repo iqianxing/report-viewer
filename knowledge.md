@@ -13,4 +13,5 @@ querystring
 var querystring = require("querystring");
 querystring.parse(global.location.search&&global.location.search.substr(1)||"") 
 ```
-
+# 工作区配置
+lib/workspace.js支持工作区功能。
