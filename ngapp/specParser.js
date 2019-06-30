@@ -13,9 +13,9 @@ getDuration = function(string) {
 };
 
 module.exports = function(socket, sce, progress, finished) {
-  var addError, addtotree, parseLine, reset, result, state;
-  console.log("in parser");
-  addtotree = function(data) {
+  var result = {};
+  var state = {};
+  function addtotree(data) {
     var branch, current, found, i, j, last, len, len1, level, lvl, newBranch, ref, ref1;
     if (data.levels) {
       current = result.tree;
@@ -51,7 +51,7 @@ module.exports = function(socket, sce, progress, finished) {
       return current.leaves.push(data);
     }
   };
-  addError = function() {
+  function addError() {
     var d, i, len, ref;
     ref = result.failed;
     for (i = 0, len = ref.length; i < len; i++) {
@@ -66,9 +66,7 @@ module.exports = function(socket, sce, progress, finished) {
     }
     return console.log("failed " + result.failed.length + " errorid " + state.error.id);
   };
-  result = {};
-  state = {};
-  reset = function() {
+  function reset() {
     console.log("resetting data");
     result.data = [];
     result.tree = {
@@ -84,9 +82,7 @@ module.exports = function(socket, sce, progress, finished) {
     state.inError = 0;
     return state.error = {};
   };
-  reset();
-  socket.on("restart", reset);
-  parseLine = function(cLine) {
+  function parseLine(cLine) {
     var currentIndent, id, item, name, removecount;
     console.log(cLine);
     if (cLine.text.indexOf("\u001b") > -1) {
@@ -184,6 +180,8 @@ module.exports = function(socket, sce, progress, finished) {
     console.log("progressing");
     return progress();
   };
+  reset();
+  socket.on("restart", reset);
   socket.on("consoleLine", parseLine);
   socket.on("getConsole", function(currentConsole) {
     var cLine, i, len, results;
