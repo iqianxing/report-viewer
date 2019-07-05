@@ -16,10 +16,10 @@ module.paths.push(cwd, path.join(cwd, 'node_modules'));
 
 var server = http.createServer();
 require("./lib/index.js")(server, program)
-if(program.opener){
+if (program.opener) {
   var debug = require('debug');
   debug("opening browser");
   opener = require("opener");
-  opener("http://localhost:" + program.port);
+  opener("http://localhost:" + program.port + "/?spec=2&project=pytest-demo&context={}");
 }
 server.listen(program.port)

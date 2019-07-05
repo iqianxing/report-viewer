@@ -21,8 +21,11 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-mochaio(server,{
-  "args":["mocha"]
+mochaio(server, {
+  "args": ["mocha"],
+  "spec": "3",
+  "project": "mocha-helloworld",
+  "context": {},
 })
 
 /**
