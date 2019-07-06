@@ -61,7 +61,7 @@
     "start": "set PORT=80 && nodemon ./bin/www",
     "build": "npm run build:script && npm run build:transfer",
     "build:transfer": "gulp default",
-    "build:script": "browserify ngapp/index.js -d -t browserify-ngannotate -t browserify-css -p [minifyify --compressPath . --map index.js.map --output ngapp/index.js.map] -o ngapp/bundle.js",
+    "build:script": "browserify ngapp/index.js -d -t browserify-ngannotate -t browserify-css -p [minifyify --compressPath . --map index.js.map --output public/report/index.js.map] -o public/report/bundle.js",
     "patch": "npm version patch;npm publish;git push;git push --tags"
   }
 }
